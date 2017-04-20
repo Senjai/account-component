@@ -1,0 +1,5 @@
+.bundle/
+Gemfile.lock
+*.gem
+gems
+settings/event_source_postgres.json
