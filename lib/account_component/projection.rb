@@ -20,6 +20,8 @@ module AccountComponent
       amount = deposited.amount
 
       account.deposit(amount)
+
+      account.transaction_position = deposited.transaction_position
     end
 
     apply Withdrawn do |withdrawn|

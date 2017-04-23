@@ -7,6 +7,7 @@ module AccountComponent
     attribute :balance, Numeric, default: 0
     attribute :opened_time, Time
     attribute :closed_time, Time
+    attribute :transaction_position, Integer
 
     def open?
       !opened_time.nil?
@@ -22,6 +23,12 @@ module AccountComponent
 
     def withdraw(amount)
       self.balance -= amount
+    end
+
+    def current?(position)
+      return false if transaction_position.nil?
+
+      transaction_position >= position
     end
 
     def sufficient_funds?(amount)
