@@ -8,7 +8,7 @@ module AccountComponent
         attribute :amount, Numeric
         attribute :time, String
         attribute :processed_time, String
-        # TODO Add transaction position attribute
+        attribute :transaction_position, Integer
       end
     end
   end

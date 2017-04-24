@@ -31,10 +31,12 @@ module AccountComponent
 
       account.withdraw(amount)
 
-      # TODO Update transaction position of account entity
+      account.transaction_position = withdrawn.transaction_position
     end
 
-    # TODO Apply withdrawal rejected event to update account's transaction position
+    apply WithdrawalRejected do |withdrawal_rejected|
+      account.transaction_position = withdrawal_rejected.transaction_position
+    end
 
     apply Closed do |closed|
       closed_time = Time.parse(closed.time)
