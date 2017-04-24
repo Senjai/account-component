@@ -60,26 +60,11 @@ module AccountComponent
       end
 
       handle Deposit do |deposit|
-        account_id = deposit.account_id
+        transaction_stream_name = stream_name(deposit.deposit_id, 'accountTransaction')
 
-        account, version = store.fetch(account_id, include: :version)
-
-        position = deposit.metadata.global_position
-
-        if account.current?(position)
-          logger.info(tag: :ignored) { "Command ignored (Command: #{deposit.message_type}, Account ID: #{account_id}, Account Position: #{account.transaction_position}, Deposit Position: #{position})" }
-          return
+        Try.(EventSource::ExpectedVersion::Error) do
+          write.initial(deposit, transaction_stream_name)
         end
-
-        time = clock.iso8601
-
-        deposited = Deposited.follow(deposit)
-        deposited.processed_time = time
-        deposited.transaction_position = position
-
-        stream_name = stream_name(account_id)
-
-        write.(deposited, stream_name, expected_version: version)
       end
 
       handle Withdraw do |withdraw|
