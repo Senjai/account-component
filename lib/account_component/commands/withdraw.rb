@@ -32,8 +32,6 @@ module AccountComponent
       end
 
       def call
-        stream_name = command_stream_name(account_id)
-
         withdraw = Messages::Commands::Withdraw.build
 
         unless previous_message.nil?
@@ -44,6 +42,8 @@ module AccountComponent
         withdraw.account_id = account_id
         withdraw.amount = amount
         withdraw.time = clock.iso8601
+
+        stream_name = command_stream_name(account_id)
 
         write.(withdraw, stream_name, reply_stream_name: reply_stream_name)
 

@@ -10,7 +10,7 @@ module AccountComponent
       def deposit_id
         @deposit_id ||= identifier.get
       end
-      attr_writer :deposit_id
+      attr_accessor :deposit_id
 
       attr_accessor :reply_stream_name
 
@@ -32,8 +32,6 @@ module AccountComponent
       end
 
       def call
-        stream_name = command_stream_name(account_id)
-
         deposit = Messages::Commands::Deposit.build
 
         unless previous_message.nil?
@@ -44,6 +42,8 @@ module AccountComponent
         deposit.account_id = account_id
         deposit.amount = amount
         deposit.time = clock.iso8601
+
+        stream_name = command_stream_name(account_id)
 
         write.(deposit, stream_name, reply_stream_name: reply_stream_name)
 
