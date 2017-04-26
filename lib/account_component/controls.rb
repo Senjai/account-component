@@ -1,5 +1,6 @@
 require 'clock/controls'
 require 'identifier/uuid/controls'
+require 'messaging/controls'
 
 require 'account_component/controls/id'
 require 'account_component/controls/time'
@@ -9,6 +10,8 @@ require 'account_component/controls/version'
 
 require 'account_component/controls/account'
 require 'account_component/controls/customer'
+
+require 'account_component/controls/message'
 
 require 'account_component/controls/commands/open'
 require 'account_component/controls/commands/deposit'

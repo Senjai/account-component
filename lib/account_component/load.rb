@@ -12,6 +12,9 @@ require 'account_component/messages/events/withdrawn'
 require 'account_component/messages/events/withdrawal_rejected'
 require 'account_component/messages/events/closed'
 
+require 'account_component/commands/command'
+require 'account_component/commands/deposit'
+
 require 'account_component/account'
 require 'account_component/projection'
 require 'account_component/store'
